@@ -21,16 +21,12 @@ RUN apt-get update && apt-get install -y \
   libxdamage1 \
   libxtst6 \
   libvulkan1 \
+  chromium \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Chromium
-RUN wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
-  && dpkg -i google-chrome-stable_current_amd64.deb \
-  && apt-get -f install -y
-
 # Set environment variable for Puppeteer to find Chromium
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Install app dependencies
 WORKDIR /app
