@@ -39,8 +39,11 @@ app.post("/generate-pdf", async (req, res) => {
     const file = { content: finalHtml };
 
     // Set Puppeteer executable path from env (used internally by html-pdf-node)
-    process.env.PUPPETEER_EXECUTABLE_PATH =
-      process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium";
+    // Set Puppeteer executable path only in production
+    if (process.env.NODE_ENV === "production") {
+      process.env.PUPPETEER_EXECUTABLE_PATH =
+        process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium";
+    }
 
     const pdfBuffer = await pdf.generatePdf(file, {
       format: "A4",
