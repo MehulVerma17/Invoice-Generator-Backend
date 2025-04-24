@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
   wget \
   ca-certificates \
   fonts-liberation \
+  fonts-noto \
   libappindicator3-1 \
   libnss3 \
   libxss1 \
