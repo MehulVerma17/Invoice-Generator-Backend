@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Invoice</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="mt-6 p-6 bg-white text-black">
+      <!-- <h1 class="text-3xl font-bold text-right">INVOICE</h1> -->
+      <h1 style="font-size: 1.875rem; font-weight: bold; text-align: right;">
+        INVOICE
+      </h1>
+
+      <!-- Header Info -->
+      <div class="grid grid-cols-2 gap-4 mt-6">
+        <div>
+            {{#if logo}}
+          <img src="{{logo}}" class="h-16" alt="Logo" />
+          {{/if}}
+        </div>
+        <div class="grid grid-rows-3 mt-2">
+          <div class="text-right">
+            <label class="bg-white input-neutral"
+            >{{number}}
+            </label>
+            <!-- <input
+              class="input bg-white input-neutral w-40 h-10 text-right"
+              value="{{number}}"
+              placeholder=""
+            /> -->
+          </div>
+          <div class="text-right">
+            <label style="color: #6B7280;" class="text-sm text-gray-500 pr-2 text-gray-600">Date:</label>
+            <input
+              type="text"
+              class="input input-neutral bg-white text-black w-40 h-10 text-right"
+              value="{{date}}"
+            />
+          </div>
+          {{#if due_date}}
+          <div class="text-right">
+            <label style="color: #6B7280;" class="text-sm text-gray-500 pr-2 text-gray-600">Due Date:</label>
+            <input
+              type="text"
+              class="input input-neutral bg-white text-black w-40 h-10 text-right"
+              value="{{due_date}}"
+            />
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <!-- Client Info -->
+      <div class="grid grid-cols-2 gap-4 mt-6">
+     
+            <label class=" ml-1 bg-white input-neutral"
+            value="{{from}}"><b>{{from}}</b>
+            </label>
+        <!-- <input
+          class="input input-xl bg-white input-neutral"
+          value="{{from}}"
+          placeholder=""
+        /> -->
+        <br></br>
+        <div class="flex gap-4">
+          <div class="form-control w-full">
+            <label style="color: #6B7280;" class="label text-sm text-gray-500 text-gray-600"><span class="label-text">Bill To:</span></label>
+            <label class=" ml-1 bg-white input-neutral"
+            value="{{to}}"><b>{{to}}</b>
+            </label>
+            <!-- <input
+              class="input input-xl bg-white input-neutral"
+              value="{{to}}"
+            /> -->
+          </div>
+          {{#if ship_to}}
+          <div class="form-control w-full">
+            <label class="label text-sm text-gray-500"><span class="label-text">Ship To:</span></label>
+            <label class="ml-1 bg-white input-neutral"
+            value="{{ship_to}}"><b>{{ship_to}}</b>
+            </label>
+            <!-- <input
+              class="input input-xl bg-white input-neutral"
+              value="{{ship_to}}"
+            /> -->
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <!-- Line Items -->
+      <div class="mt-6">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-900 text-white">
+            <tr>
+              <th class="p-2">Item</th>
+              <th>Quantity</th>
+              <th>Rate</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each items}}
+            <tr>
+              <td class="w-4/6 px-1 py-1">{{description}}</td>
+              <td class="w-1/9 px-1 py-1 text-center">{{quantity}}</td>
+              <td class="w-1/8 px-1 py-1 text-center">{{currency}}{{price}}</td>
+              <td class="text-center pr-2 p-2">{{individualAmount}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Notes & Totals -->
+      <div class="mt-6 flex gap-12">
+        <div class="flex-1 grid grid-rows-2 gap-4">
+            {{#if notes}}
+          <div>
+            <label class="text-sm text-gray-500 block">Notes:</label>
+            <div class="border:no mb-6 h-full w-full">{{notes}}</div>
+          </div>
+          {{/if}}
+          {{#if terms}}
+          <div>
+            <label class="text-sm text-gray-500 block">Terms:</label>
+            <div class="border:no h-full w-full">{{terms}}</div>
+          </div>
+          {{/if}}
+        </div>
+
+        <div class="w-72 space-y-2">
+          <div class="flex justify-between text-sm text-gray-600">
+            <p>Subtotal:</p>
+            <p class="text-black font-medium">{{currency}}{{subtotal}}</p>
+          </div>
+          <div class="flex justify-between text-sm text-gray-600">
+            <p>Discount:</p>
+            <p>{{currency}}{{discounts}}</p>
+          </div>
+          <div class="flex justify-between text-sm text-gray-600">
+            <p>Tax:</p>
+            <p>{{currency}}{{tax}}</p>
+          </div>
+          <div class="flex justify-between text-sm text-gray-600">
+            <p>Shipping:</p>
+            <p>{{currency}}{{shipping}}</p>
+          </div>
+          <div class="flex justify-between font-bold text-lg text-gray-700">
+            <p>Total:</p>
+            <p>{{currency}}{{total}}</p>
+          </div>
+          <div class="flex justify-between text-sm text-gray-600">
+            <p>Amount Paid:</p>
+            <p>{{currency}}{{amount_paid}}</p>
+          </div>
+          <div class="flex justify-between font-semibold text-gray-700">
+            <p>Balance Due:</p>
+            <p>{{currency}}{{balance_due}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
